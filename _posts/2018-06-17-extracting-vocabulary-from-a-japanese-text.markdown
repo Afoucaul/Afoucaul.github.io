@@ -1,4 +1,33 @@
+---
+layout: post
+title:  "Extracting vocabulary words from a Japanese text"
+date:   2018-06-17 19:29:02 +0200
+---
+
+I'm always looking for new tools to help me in my learning of the Japanese language.
+I've never been really fond of these applications that promise to teach you a language, because I feel like I'm learning much more when I read a paper book or when I take a pen and write words down.
+That's why the tools I love are those who help me learn by myself.
+
+These days, I've been using a few reading tools, that give you a pop-up when you click on a word when reading a text, telling you its meaning.
+When the goal is to learn and memorize vocabulary, I find this approach totally inefficient, as it prevents the reader from making any effor.
+Therefore, I thought to myself that it would be nice that when I want to read a text, I would be given a list of words appearing in that text, so that I could study it beforehand.
+
+So here is today's objective: extracting the words of vocabulary from a text in Japanese, fetching their meaning from a dictionary, and providing this as a list.
+
+
+# What's the plan?
+
+I'm going to extract all the words from a text written in Japanese.
+For this, I'll use a lexical analyzer, whose output I will have to filter so as to keep only the useful data.
+Then, I'll use an online dictionary to retrieve these words' meanings.
+
+
 # Installing a lexical analyzer
+
+A lexical analyzer is a tool that can extract the words of a text, an operation called *segmentation*.
+It can have other features, such as tagging the words (attaching them information such as their grammatical natures); however I'll only use the segmentation feature.
+
+# MeCab
 
 Following [[1]](#robfahey1), I choose MeCab.
 
