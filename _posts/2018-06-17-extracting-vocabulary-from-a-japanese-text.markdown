@@ -1,6 +1,4 @@
-# Extracting vocabulary out of a Japanese text
-
-## Installing a lexical analyzer
+# Installing a lexical analyzer
 
 Following [[1]](#robfahey1), I choose MeCab.
 
@@ -44,7 +42,7 @@ It turns out that MeCab is quite buggy with Python, crashing half of the time in
 I decide to try with Nagisa.
 
 
-### Kuromoji
+## Kuromoji
 
 Nagisa is a Python module, based on neural networks.
 It's simply installed with `pip`, and can be tested easily:
@@ -62,7 +60,7 @@ Out[2]: ['今日', 'は', 'いい', '天気', 'です', 'ね']
 It looks way better.
 Maybe I'll have some surprises later on, but I'm pretty sure it's gonna be enough.
 
-## Extracting segmented words out of an actual text
+# Extracting segmented words out of an actual text
 
 From now on, I'm sticking with Nagisa.
 
@@ -130,7 +128,7 @@ There are three issues to address, that are, from the easiest to the hardest:
 3. There are non-Japanese words
 
 
-### Removing empty words
+## Removing empty words
 
 I will use for this purpose a simple regex, to remove both empty and all-blank words.
 These days I'm found of functional programming, so I'm gonna use `filter`.
@@ -209,7 +207,7 @@ search
 他
 ```
 
-### Removing the duplicates
+## Removing the duplicates
 
 To remove the duplicates, I'll simply convert the list into a set.
 A set is a data structure that cannot contain duplicates, so the conversion will remove them.
@@ -241,7 +239,7 @@ for word in words:
 This is not really impressive, so I'm not gonna show the output here.
 
 
-### Keeping only Japanese words
+## Keeping only Japanese words
 
 This is the tricky part.
 I'm actually going to solve it in a very simple way, using Python's magic.
@@ -290,7 +288,7 @@ The output of this script is now only 1000 lines long, and contains only full Ja
 The goal of extracting a list of untouched words out of a text is now reached, although there might be some points to improve.
 I will now focus on fetching the dictionary definitions for all these words.
 
-## Getting the dictionary version of extracted words
+# Getting the dictionary version of extracted words
 
 In order to get the meaning of the extracted words, I will use Jisho website's API.
 Jisho made a wonderful work, aggregating all the knowledge of Japanese language into a single website and a well-working API.
@@ -412,13 +410,13 @@ The output is the following dictionary:
 }
 ```
 
-## Performance issues
+# Performance issues
 
 - Compile the regexes beforehand
 - Use generators instead of a list generation, to filter lazily
 
 
-## References
+# References
 
 - <a name="robfahey1"></a>[Japanese Text Analysis in Python](http://www.robfahey.co.uk/blog/japanese-text-analysis-in-python/)
 - <a name="philipperemy1"></a>[Japanese Word2Vec](https://github.com/philipperemy/japanese-words-to-vectors)
