@@ -35,7 +35,7 @@ Then I found [Nagisa](nagisa), which looked promising, and it happened to work d
 Nagisa is a module based on neural networks.
 It's simply installed with `pip`, and can be tested easily:
 
-```ipython
+```python
 In [1]: import nagisa
 [dynet] random seed: 1234
 [dynet] allocating memory: 512MB
@@ -53,7 +53,7 @@ I just made a Ctrl-A Ctrl-V of the page into a `python_wikipedia.txt` file, as a
 
 I'm using the following script, to print out all the segmentized words from the input text:
 
-```python3
+```python
 # nagisa_segmentize.py
 
 import nagisa
@@ -115,7 +115,7 @@ I will use for this purpose a simple regex, to remove both empty and all-blank w
 These days I'm found of functional programming, so I'm gonna use `filter`.
 Here it is:
 
-```python3
+```python
 #! /bin/env python3
 
 import sys
@@ -138,7 +138,7 @@ So I'm just adding a check against `r'\W'`, which represents a non-word characte
 This way, I'll merely filter out any word that contains a non-word character.
 This will include punctuation characters, but also potential weir results I'm not interested in.
 
-```python3
+```python
 #! /bin/env python3
 
 import sys
@@ -197,7 +197,7 @@ Note however that this breaks the order, and I might need to fix this later.
 
 I'll modify my script so as it puts the words into a set, and displays it at the end.
 
-```python3
+```python
 #! /bin/env python3
 
 import sys
@@ -237,7 +237,7 @@ This filtering might be a bit harsh, but it's gonna be good enough for now.
 
 I'm going to write a `validate_word` function, so as to avoid writing all the filtering on a single line.
 
-```python3
+```python
 import regex as re
 
 def validate_word(word):
@@ -250,7 +250,7 @@ def validate_word(word):
 
 The main section of the script does not change a lot:
 
-```python3
+```python
 words = set()
 
 with open(sys.argv[1], 'r') as file:
@@ -277,7 +277,7 @@ For each extracted word, I will send a request to this API with the module `requ
 
 The response received from Jisho's API will look like this:
 
-```ipython
+```python
 In [1]: import requests
 
 In [2]: requests.get("https://jisho.org/api/v1/search/words?keyword=家").json()
@@ -303,7 +303,7 @@ Out[2]:
 
 Let's write now a function that gets the response for a single word.
 
-```python3
+```python
 import requests
 
 def get_meaning(word):
@@ -318,7 +318,7 @@ def get_meaning(word):
 Since all the requests to the API are unrelated, I can write them as `asyncio` coroutines, and start them all in the main section.
 I decide that each coroutine will fill a field in a global dictionary.
 
-```python3
+```python
 async def get_meaning(dictionary, word):
     data = requests.get(API_URL.format(word)).json()['data'][0]
 
@@ -330,7 +330,7 @@ async def get_meaning(dictionary, word):
 
 And the main section is now a `main` function, marked `async` as well:
 
-```python3
+```python
 async def main(meanings):
     words = set()
 
@@ -349,7 +349,7 @@ async def main(meanings):
 
 Finally, I setup the event loop and call the `main` function:
 
-```python3
+```python
 if __name__ == '__main__':
     event_loop = aio.get_event_loop()
     try:
@@ -380,7 +380,7 @@ Received meaning for word です
 
 The output is the following dictionary:
 
-```python3
+```python
 {
     です: {'reading': 'です', 'meanings': ['be']}
     いい: {'reading': 'よい', 'meanings': ['good', 'sufficient (can be used to turn down an offer)', 'profitable (e.g. deal, business offer, etc.)', 'OK']}
