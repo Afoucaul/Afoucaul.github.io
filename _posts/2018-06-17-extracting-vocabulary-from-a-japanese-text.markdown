@@ -20,63 +20,22 @@ So here is today's objective: extracting the words of vocabulary from a text in 
 I'm going to extract all the words from a text written in Japanese.
 For this, I'll use a lexical analyzer, whose output I will have to filter so as to keep only the useful data.
 Then, I'll use an online dictionary to retrieve these words' meanings.
+For all this process, I'll use Python.
 
 
-# Installing a lexical analyzer
+# Extracting segmented words out of an actual text
 
 A lexical analyzer is a tool that can extract the words of a text, an operation called *segmentation*.
 It can have other features, such as tagging the words (attaching them information such as their grammatical natures); however I'll only use the segmentation feature.
 
-# MeCab
+I've tried with [MeCab](mecab), but the results I got were not really satisfying. It seems pretty good however, so if you're lookin for a lexical analyzer, it's probably worth giving it a chance.
+I came across [Kuromoji](kuromoji) as well, but did not try it, since it's designed for Java.
+Then I found [Nagisa](nagisa), which looked promising, and it happened to work directly out of the box, so I decided to stick with it.
 
-Following [[1]](#robfahey1), I choose MeCab.
-
-*This will clone the repo in the current directory, so take your time and be sure to put it where you want it to be*
-
-```bash
-sudo apt-get install mecab mecab-ipadic libmecab-dev mecab-ipadic-utf8 git curl
-git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
-cd mecab-ipadic-neologd
-sudo ./bin/install-mecab-ipadic-neologd -n
-pip3 install mecab-python3
-```
-
-Example script from [[1]](#robfahey):
-
-```python3
-import MeCab
-
-test = "今日はいい天気ですね。遊びに行かない？新宿で祭りがある！"
-mt = MeCab.Tagger("-d /usr/lib/mecab/dic/mecab-ipadic-neologd")
-
-parsed = mt.parseToNode(test)
-components = []
-while parsed:
-    components.append(parsed.surface)
-    parsed = parsed.next
-
-print(components)
-```
-
-Output:
-
-```python3
-['', '', '', 'いい', '天気', 'です', 'ね', '。', '遊び', 'に', '行か', 'ない', '？', '新宿', 'で', '祭り', 'が', 'ある', '！', '']
-```
-
-The first three elements are empty strings, but these should clearly be respectively `'今'`, `'日'` and `'は'`.
-What happened?
-It turns out that MeCab is quite buggy with Python, crashing half of the time inconsistently, and skipping some words.
-
-I decide to try with Nagisa.
-
-
-## Kuromoji
-
-Nagisa is a Python module, based on neural networks.
+Nagisa is a module based on neural networks.
 It's simply installed with `pip`, and can be tested easily:
 
-```python3
+```ipython
 In [1]: import nagisa
 [dynet] random seed: 1234
 [dynet] allocating memory: 512MB
@@ -86,17 +45,10 @@ In [2]: nagisa.tagging("今日はいい天気ですね").words
 Out[2]: ['今日', 'は', 'いい', '天気', 'です', 'ね']
 ```
 
-It looks way better.
-Maybe I'll have some surprises later on, but I'm pretty sure it's gonna be enough.
-
-# Extracting segmented words out of an actual text
-
-From now on, I'm sticking with Nagisa.
-
 I'm now focusing on extracting all the words from an actual text.
 The goal here is not to have these words in a plain form (辞書形); the issue related to forms will be handled later.
 
-Let's test it on a more concrete file: [Wikipedia's article on Python, in Japanese](https://ja.wikipedia.org/wiki/Python).
+Let's test it on a more concrete file: [Wikipedia's article on Python, in Japanese](wikipedia-python-japanese).
 I just made a Ctrl-A Ctrl-V of the page into a `python_wikipedia.txt` file, as all I need is a large amount of words.
 
 I'm using the following script, to print out all the segmentized words from the input text:
@@ -274,10 +226,10 @@ This is the tricky part.
 I'm actually going to solve it in a very simple way, using Python's magic.
 Regular expressions have a lot of metacharacter, but there's one that is less known that the rest: `\p`.
 It allows to refer to a group of Unicode characters, called a Unicode category.
-The categories that I am aiming for are `Hiragana`, `Katakana`, and `Han` (for kanjis, or hanzis in Mandarin Chinese) [[3]](#localizingjapan).
+The categories that I am aiming for are `Hiragana`, `Katakana`, and `Han` (for kanjis, or hanzis in Mandarin Chinese), which are detailed in [this post on Localizing Japan](localizing-japan).
 
 Unfortunately, Python's built-in module `re` does not support these categories.
-But there exists a less known regular expression module for Python, called `regex` [[4]](#pythonregex).
+But there exists a less known regular expression module for Python, called [`regex`][python-regex]G
 This module handles a ridiculously broad range of ERE features, and provides `re`'s functions as well.
 
 So using `regex` and the character categories, I'm just gonna filter out words that don't contain hiraganas, nor katakanas, nor kanjis.
@@ -447,9 +399,9 @@ The output is the following dictionary:
 
 # References
 
-- <a name="robfahey1"></a>[Japanese Text Analysis in Python](http://www.robfahey.co.uk/blog/japanese-text-analysis-in-python/)
-- <a name="philipperemy1"></a>[Japanese Word2Vec](https://github.com/philipperemy/japanese-words-to-vectors)
-- <a name="localizingjapan"></a>[Localizing Japan](http://www.localizingjapan.com/blog/2012/01/20/regular-expressions-for-japanese-text/)
-- <a name="pythonregex"></a>[PyPI page on `regex` module](https://pypi.org/project/regex/)
-- <a name="jisho"></a>[Jisho](https://jisho.org/)
-
+[localizing-japan]: http://www.localizingjapan.com/blog/2012/01/20/regular-expressions-for-japanese-text/
+[python-regex]: https://pypi.org/project/regex/
+[mecab]: https://taku910.github.io/mecab/
+[kuromoji]: http://www.atilika.org/
+[nagisa]: https://github.com/taishi-i/nagisa
+[wikipedia-python-japanese]: https://ja.wikipedia.org/wiki/Python
