@@ -14,6 +14,8 @@ Therefore, I thought to myself that it would be nice that when I want to read a 
 
 So here is today's objective: extracting the words of vocabulary from a text in Japanese, fetching their meaning from a dictionary, and providing this as a list.
 
+*The code of this project is available on [my GitHub]()*
+
 
 # What's the plan?
 
@@ -391,10 +393,15 @@ The output is the following dictionary:
 }
 ```
 
-# Performance issues
+The goal is reached: given a text written in Japanese, I got a list of unique words with their readings and meanings.
+This can be improved in many ways, including:
 
-- Compile the regexes beforehand
-- Use generators instead of a list generation, to filter lazily
+- Excluding one-hiragana words (cf the last `ね` that leads to strange meanings")
+- Tagging words with JLPT level and keep only words above a certain level
+
+This can be used further for many applications as well:
+
+- Rating the difficulty of a text according to the number of words and their average JLPT level
 
 
 # References
