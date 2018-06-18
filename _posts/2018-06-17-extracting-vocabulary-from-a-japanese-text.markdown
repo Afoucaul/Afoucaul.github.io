@@ -9,7 +9,7 @@ I've never been really fond of these applications that promise to teach you a la
 That's why the tools I love are those who help me learn by myself.
 
 These days, I've been using a few reading tools, that give you a pop-up when you click on a word when reading a text, telling you its meaning.
-When the goal is to learn and memorize vocabulary, I find this approach totally inefficient, as it prevents the reader from making any effor.
+When the goal is to learn and memorize vocabulary, I find this approach totally inefficient, as it prevents the reader from making any remembering effort.
 Therefore, I thought to myself that it would be nice that when I want to read a text, I would be given a list of words appearing in that text, so that I could study it beforehand.
 
 So here is today's objective: extracting the words of vocabulary from a text in Japanese, fetching their meaning from a dictionary, and providing this as a list.
