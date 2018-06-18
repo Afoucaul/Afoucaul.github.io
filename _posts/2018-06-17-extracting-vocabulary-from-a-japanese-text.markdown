@@ -47,6 +47,8 @@ In [2]: nagisa.tagging("今日はいい天気ですね").words
 Out[2]: ['今日', 'は', 'いい', '天気', 'です', 'ね']
 ```
 
+*As [commented by taishi-i](https://github.com/Afoucaul/extracting-vocabulary-out-of-a-japanese-text/issues/1), the `nagisa.wakati` function is more suitable than `tagging`, because I don't need any additional information for now.*
+
 I'm now focusing on extracting all the words from an actual text.
 The goal here is not to have these words in a plain form (辞書形); the issue related to forms will be handled later.
 
@@ -404,7 +406,7 @@ This can be used further for many applications as well:
 - Rating the difficulty of a text according to the number of words and their average JLPT level
 
 
-# Acknowledgement
+# Acknowledgements
 
 Thanks to [taishi-i](https://github.com/taishi-i), author of the Nagisa module, for both their work and their reading my work.
 Thanks to Jisho's developers, maintainers and admins, without whom I could never have done what I did (I'm not only talking about this post :)).
