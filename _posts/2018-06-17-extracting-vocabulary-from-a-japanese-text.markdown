@@ -404,6 +404,11 @@ This can be used further for many applications as well:
 - Rating the difficulty of a text according to the number of words and their average JLPT level
 
 
+# Acknowledgement
+
+Thanks to [taishi-i](https://github.com/taishi-i), author of the Nagisa module, for both their work and their reading my work.
+Thanks to Jisho's developers, maintainers and admins, without whom I could never have done what I did (I'm not only talking about this post :)).
+
 # References
 
 [localizing-japan]: http://www.localizingjapan.com/blog/2012/01/20/regular-expressions-for-japanese-text/
