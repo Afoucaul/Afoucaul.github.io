@@ -14,7 +14,7 @@ Therefore, I thought to myself that it would be nice that when I want to read a 
 
 So here is today's objective: extracting the words of vocabulary from a text in Japanese, fetching their meaning from a dictionary, and providing this as a list.
 
-*The code of this project is available on [my GitHub]()*
+*The code of this project is available on [my GitHub](https://github.com/Afoucaul/extracting-vocabulary-out-of-a-japanese-text).*
 
 
 # What's the plan?
