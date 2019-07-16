@@ -119,8 +119,8 @@ def main(path):
     	# StringIO.write appends a string at the end of the buffer
         output.write(word)
         if word in words:
-	    # Since I chose to write the annotation inside curly braces, I cannot use the common
-	    # formatting, but I can use % instead
+	    # Since I chose to write the annotation inside curly braces, 
+	    # I cannot use the common formatting, but I can use % instead
             output.write("{%s}" % meanings[word])
 
     print(output.getvalue())
@@ -180,7 +180,7 @@ if __name__ == '__main__':
 ```
 {% endraw %}
 
-# Making a simple visualization tool
+# Bonus: Making a simple visualization tool
 
 Alright, we have annotated the input text.
 However, this is definitely not readable.
