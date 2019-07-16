@@ -105,6 +105,7 @@ I will form the output using `io.StringIO`, which is similar to Java's `StringBu
 Again, the code is pretty simple:
 
 
+{% raw %}
 ```python
 def main(path):
     with open(path, 'r') as fd:
@@ -124,6 +125,7 @@ def main(path):
 
     print(output.getvalue())
 ```
+{% endraw %}
 
 The output is exactly what we expected:
 
