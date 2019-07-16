@@ -139,6 +139,7 @@ $ python3 segmentize.py short.txt
 
 So far, the script is as short as 36 lines:
 
+{% raw %}
 ```python
 import io
 import sys
@@ -177,6 +178,7 @@ if __name__ == '__main__':
     path, *_ = sys.argv[1:]
     main(path)
 ```
+{% endraw %}
 
 # Making a simple visualization tool
 
