@@ -30,7 +30,7 @@ import regex as re
 import nagisa
 
 
-KANJI_REGEX = re.compile("\p{Han}")
+KANJI_REGEX = re.compile("\p{Han}+$")
 
 
 def main(path):
@@ -147,7 +147,7 @@ import requests
 API_URL = "https://jisho.org/api/v1/search/words?keyword={}"
 
 
-KANJI_REGEX = re.compile("\p{Han}")
+KANJI_REGEX = re.compile("\p{Han}+$")
 
 
 def get_meaning(word):
@@ -175,3 +175,60 @@ if __name__ == '__main__':
     path, *_ = sys.argv[1:]
     main(path)
 ```
+
+# Making a simple visualization tool
+
+Alright, we have annotated the input text.
+However, this is definitely not readable.
+What's more, the annotation is very poor, but if we were to add information such as pronounciation and more meanings, this would become an absolute mess.
+So here's what I'm gonna do: a very simple visualization tool, using HTML and CSS.
+To be more precise, I'm gonna use HTML to annotate the output text, rather than those impractical curly braces.
+There are tons of possible ways to do this, but I'm gonna stay simple and implement the approach described in [this StackOverflow post](https://stackoverflow.com/a/25813336/7051394).
+
+The annotated text is a slight bit more complex than before, but not much: I just enclose the word in a `<span>` tag, with a `meaning` attribute.
+
+```python
+for word in segmentized:
+    if word in words:
+        output.write(
+    	"<span meaning='{meaning}'>{word}</span>".format(
+    	    meaning=meanings[word],
+    	    word=word
+        ))
+    else:
+        output.write(word)
+```
+
+Then, instead of simply printing the output, I write it to an `output.html` file.
+In a real-life application, I would use Jinja and a clean template for this purpose, but for now I'll naively write the HTML code in the Python script:
+
+```python
+with open("output.html", 'w') as fd:
+    fd.write(
+"""
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" />
+<meta charset="utf-8"/>
+</head>
+
+<body>
+{}
+</body>
+</html>
+""".format(output.getvalue())
+    )
+```
+
+With very basic styling, this is the output I created:
+
+![Annotated text](/assets/annotated_text.png)
+
+
+
+# Conclusion
+
+Here we are now: from a text written in Japanese, we are able to annotate the words written in kanji, and to present it in a readable and dynamic appearance.
+I'll admit that the presentation is rather austere, and that the information it displays for each word is far from complete.
+But the concept is here; we can easily add more of the information fetched from Jisho to the tooltip, and the visual aspect of the reader can also be improved without to much difficulty.
